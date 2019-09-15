@@ -12,7 +12,6 @@
 
 (library
   (name mdev)
-  (modules mdev global_variables port port_map
-  std_bus dir pwm servo sonic led)
+  (modules mdev global_variables port port_map std_bus dir pwm servo sonic led)
   (preprocess (pps ppx_jane))
   (libraries base smbus))

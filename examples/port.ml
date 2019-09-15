@@ -15,7 +15,7 @@ type t = { num: Uint8.t
          }
 
 let create num connection =
-  let num = Smbus.Uint8.of_int_exn num in
+  let num = Uint8.of_int_exn num in
   { num; connection }
 
 let to_string conn =
@@ -28,7 +28,7 @@ let to_string conn =
   | Sonic -> "sonic"
 
 let get_name t =
-  "servo: " ^ (to_string t.connection) ^
+  "connection: " ^ (to_string t.connection) ^
     ", port: " ^ (Int.to_string (Uint8.to_int t.num))
   
 type port_req = {port : t; connection : connection}
@@ -46,17 +46,19 @@ let check_port_req port_req =
                 ^ "connection."))
   
 let check_port_reqs ?all_dif:(all_dif = true) port_reqs =
-  List.iter ~f:check_port_req port_reqs;
   if all_dif then
     let ports_used = Hash_set.create (module Int) in
-    let check_port port_int =
+    let full_check_port_req port_req =
+      check_port_req port_req;
+      let port_int = Uint8.to_int port_req.port.num in
       if Hash_set.mem ports_used port_int then
         raise (Duplicate_port
                  ("Attempted to assign multiple devices to port " ^
                     (Int.to_string port_int)))
+      else Hash_set.add ports_used port_int
     in
-    List.iter ~f:check_port
-      (List.map ~f:(fun port_req -> Uint8.to_int port_req.port.num) port_reqs)
+    List.iter ~f:full_check_port_req port_reqs
+      
   
 
 let servo1 = create 0 Servo

@@ -1,4 +1,5 @@
 (executables
-  (names siggy)
-  (libraries base core)
-  (preprocess (pps ppx_jane)))
+ (names siggy)
+ (libraries base stdio core)
+ (preprocess
+  (pps ppx_jane)))
