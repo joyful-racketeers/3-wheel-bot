@@ -1,3 +1,4 @@
+(*
 let () =
   let mdev = Mdev.create () in
   let cmd =
@@ -49,3 +50,4 @@ let () =
     done;
     Mdev.set_servo2 mdev 0.5;
     Mdev.set_rgb mdev ~r:1 ~g:1 ~b:1
+ *)

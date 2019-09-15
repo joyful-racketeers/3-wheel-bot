@@ -1,15 +1,18 @@
 (executables
   (names mdev_test)
   (modules mdev_test)
+  (preprocess (pps ppx_jane))
   (libraries base mdev))
 
 (executables
   (names mdev_corridor)
   (modules mdev_corridor)
-  (preprocess (pps ppx_let))
+  (preprocess (pps ppx_jane))
   (libraries async base mdev))
 
 (library
   (name mdev)
-  (modules mdev)
+  (modules mdev global_variables port port_map
+  std_bus dir pwm servo sonic led)
+  (preprocess (pps ppx_jane))
   (libraries base smbus))

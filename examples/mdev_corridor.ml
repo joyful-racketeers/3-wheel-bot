@@ -1,3 +1,4 @@
+(*
 open Core
 open Async
 
@@ -124,3 +125,4 @@ let run () =
 let () =
   Async.Command.async ~summary:"An echo server" (Async.Command.Param.return run)
   |> Async.Command.run
+ *)
