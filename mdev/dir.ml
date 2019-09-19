@@ -1,8 +1,8 @@
-open Smbus
+open Import
 
-type t = {port : Port.t}
+type t = { port : Port.t }
 
-let create port = {port}
+let create port = { port }
 let port t = t.port
 
 type direction =
@@ -13,6 +13,5 @@ let direction_to_int direction =
   match direction with
   | Forward -> Uint16.one
   | Reverse -> Uint16.zero
-  
-let set_dir t direction =
-  Std_bus.write t.port (direction_to_int direction)
+
+let set_dir t direction = Std_bus.write t.port (direction_to_int direction)

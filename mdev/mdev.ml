@@ -1,3 +1,6 @@
+module Dir = Dir
+module Direction = Direction
+
 (* Example code for the Freenove 3-wheeled smartcar.
  https://github.com/Freenove/Freenove_Three-wheeled_Smart_Car_Kit_for_Raspberry_Pi
 *)

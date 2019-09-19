@@ -1,3 +1,3 @@
-open Smbus
+open Import
 
 val bus : Bus.t

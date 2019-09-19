@@ -1,4 +1,5 @@
-open Smbus
+open! Base
+open! Import
 
 type connection =
   | Servo
@@ -8,15 +9,18 @@ type connection =
   | Buzzer
   | Sonic
 
-type t = {num : Uint8.t; connection: connection}
+type t =
+  { num : Uint8.t
+  ; connection : connection
+  }
+
 type port_req
-       
+
 val create : int -> connection -> t
 val get_name : t -> string
 val create_port_req : t -> connection -> port_req
 val check_port_req : port_req -> unit
 val check_port_reqs : ?all_dif:bool -> port_req list -> unit
-  
 val servo1 : t
 val servo2 : t
 val servo3 : t
