@@ -1,3 +1,4 @@
+module Buzzer = Buzzer
 module Direction = Direction
 module Led = Led
 module Motor = Motor

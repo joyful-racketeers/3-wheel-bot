@@ -3,14 +3,6 @@ open Mdev
 
 (*
   match cmd with
-  | `blink ->
-    Mdev.set_rgb mdev ~r:0 ~g:1 ~b:1;
-    Unix.sleep 3;
-    Mdev.set_rgb mdev ~r:1 ~g:0 ~b:1;
-    Unix.sleep 3;
-    Mdev.set_rgb mdev ~r:1 ~g:1 ~b:0;
-    Unix.sleep 3;
-    Mdev.set_rgb mdev ~r:1 ~g:1 ~b:1
   | `buzzer ->
     Mdev.set_buzzer mdev ~level:3000;
     Unix.sleep 1;
@@ -20,6 +12,30 @@ open Mdev
     Unix.sleep 1;
     Mdev.set_pwm mdev ~level:0
 *)
+
+let buzzer =
+  Command.basic ~summary:"Make some noise!"
+    [%map_open.Command.Let_syntax
+      let () = return () in
+      fun () ->
+        Buzzer.set_level 3000;
+        Unix.sleep 1;
+        Buzzer.set_level 0]
+
+let blink =
+  Command.basic
+    ~summary:"Blink the LED"
+    [%map_open.Command.Let_syntax
+      let () = return () in
+      fun () ->
+        Led.set_rgb false true true;
+        Unix.sleep 1;
+        Led.set_rgb true false true;
+        Unix.sleep 1;
+        Led.set_rgb true true false;
+        Unix.sleep 1;
+        Led.set_rgb true true true
+    ]
 
 let sonic_scan =
   Command.basic
@@ -69,6 +85,8 @@ let () =
     ~summary:"Command for playing with the robot APIs"
     [ "sonic", sonic
     ; "sonic-scan", sonic_scan
-    ; "servoe", servo
+    ; "servo", servo
+    ; "blink", blink
+    ; "buzzer", buzzer
     ]
   |> Command.run
