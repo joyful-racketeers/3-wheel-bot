@@ -3,8 +3,8 @@ open! Import
 
 type t
 
-val left_motor : t
-val right_motor : t
+val left : t
+val right : t
 
 (** Set the speed of the motor; positive values go forward, negative
    values go backwards.  *)

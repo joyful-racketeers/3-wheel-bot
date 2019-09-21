@@ -21,8 +21,8 @@ let set_speed t level =
   Std_bus.write t.dir (Direction.to_int direction);
   Std_bus.write t.pwm (Uint16.of_int_exn (abs level))
 
-let left_motor =
+let left =
   create ~reverse:false ~pwm:Port_map.pwm1 ~dir:Port_map.dir1
 
-let right_motor =
+let right =
   create ~reverse:false ~pwm:Port_map.pwm2 ~dir:Port_map.dir2
