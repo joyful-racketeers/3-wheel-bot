@@ -45,7 +45,7 @@ exception Bad_connection of string
 exception Duplicate_port of string
 
 let check_port_req port_req =
-  if compare_connection port_req.port.connection port_req.connection = 0
+  if compare_connection port_req.port.connection port_req.connection <> 0
   then
     raise
       (Bad_connection
