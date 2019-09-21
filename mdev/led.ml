@@ -11,14 +11,13 @@ let t =
   let green_port = Port_map.io2 in
   let blue_port = Port_map.io3 in
   Port.check_port_reqs
-    [ Port.create_port_req red_port   Io
+    [ Port.create_port_req red_port Io
     ; Port.create_port_req green_port Io
-    ; Port.create_port_req blue_port  Io
+    ; Port.create_port_req blue_port Io
     ];
   { red_port; green_port; blue_port }
 
-let set_io port on =
-  Std_bus.write port (if on then Uint16.one else Uint16.zero)
+let set_io port on = Std_bus.write port (if on then Uint16.one else Uint16.zero)
 
 let set_rgb r_on g_on b_on =
   set_io t.red_port r_on;

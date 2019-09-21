@@ -11,8 +11,7 @@ type t =
    ~reverse:true if the motor is wired up backwards. *)
 let create ~reverse ~pwm ~dir =
   Port.check_port_reqs
-    [ Port.create_port_req pwm Port.Pwm
-    ; Port.create_port_req dir Port.Dir ];
+    [ Port.create_port_req pwm Port.Pwm; Port.create_port_req dir Port.Dir ];
   { pwm; dir; reverse }
 
 let set_speed t level =
@@ -21,8 +20,5 @@ let set_speed t level =
   Std_bus.write t.dir (Direction.to_int direction);
   Std_bus.write t.pwm (Uint16.of_int_exn (abs level))
 
-let left =
-  create ~reverse:false ~pwm:Port_map.pwm1 ~dir:Port_map.dir1
-
-let right =
-  create ~reverse:false ~pwm:Port_map.pwm2 ~dir:Port_map.dir2
+let left = create ~reverse:false ~pwm:Port_map.pwm1 ~dir:Port_map.dir1
+let right = create ~reverse:false ~pwm:Port_map.pwm2 ~dir:Port_map.dir2

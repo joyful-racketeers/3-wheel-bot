@@ -18,4 +18,3 @@ type pig =
   }
 
 let kill_pig p = { p with alive = false }
-
