@@ -1,7 +1,6 @@
 module Direction = Direction
 module Led = Led
-module Port = Port
-module Port_map = Port_map
+module Motor = Motor
 module Servo = Servo
 module Sonic = Sonic
 
