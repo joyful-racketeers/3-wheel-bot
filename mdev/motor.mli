@@ -3,9 +3,8 @@ open! Import
 
 type t
 
-(** Creates a motor given a pwm and directional port.  Provide
-   ~reverse:true if the motor is wired up backwards. *)
-val create : reverse:bool -> pwm:Port.t -> dir:Port.t -> t
+val left_motor : t
+val right_motor : t
 
 (** Set the speed of the motor; positive values go forward, negative
    values go backwards.  *)
