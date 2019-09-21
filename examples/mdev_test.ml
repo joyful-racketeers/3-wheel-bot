@@ -1,17 +1,16 @@
 open Core
 open Mdev
 
-(*
-  match cmd with
-  | `buzzer ->
-    Mdev.set_buzzer mdev ~level:3000;
-    Unix.sleep 1;
-    Mdev.set_buzzer mdev ~level:0
-  | `forward ->
-    Mdev.set_pwm mdev ~level:1000;
-    Unix.sleep 1;
-    Mdev.set_pwm mdev ~level:0
-*)
+let forward =
+  Command.basic ~summary:"Move the robot forward"
+    [%map_open.Command.Let_syntax
+       let () = return () in
+       fun () ->
+         Motor.set_speed Motor.left 1000;
+         Motor.set_speed Motor.right 1000;
+         Unix.sleep 1;
+         Motor.set_speed Motor.left 0;
+         Motor.set_speed Motor.right 0]
 
 let buzzer =
   Command.basic ~summary:"Make some noise!"
@@ -88,5 +87,6 @@ let () =
     ; "servo", servo
     ; "blink", blink
     ; "buzzer", buzzer
+    ; "forward", forward
     ]
   |> Command.run
