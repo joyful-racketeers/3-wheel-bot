@@ -1,5 +1,9 @@
-module Dir = Dir
 module Direction = Direction
+module Led = Led
+module Port = Port
+module Port_map = Port_map
+module Servo = Servo
+module Sonic = Sonic
 
 (* Example code for the Freenove 3-wheeled smartcar.
  https://github.com/Freenove/Freenove_Three-wheeled_Smart_Car_Kit_for_Raspberry_Pi
