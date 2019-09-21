@@ -1,7 +1,7 @@
 open! Base
 open! Import
 
-let differential_servo = Port.servo1
+let steering_servo = Port.servo1
 let sonar_servo = Port.servo2
 let camera_servo = Port.servo3
 let pwm1 = Port.pwm1
