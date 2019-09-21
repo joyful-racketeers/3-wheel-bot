@@ -49,7 +49,7 @@ let check_port_req port_req =
   then
     raise
       (Bad_connection
-         ("Excpected a "
+         ("Expected a "
          ^ to_string port_req.port.connection
          ^ "connection, but given a "
          ^ to_string port_req.connection
