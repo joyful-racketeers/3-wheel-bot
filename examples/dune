@@ -1,11 +1,13 @@
 (executables
-  (names mdev_test)
-  (modules mdev_test)
-  (preprocess (pps ppx_jane))
-  (libraries base mdev))
+ (names mdev_test)
+ (modules mdev_test)
+ (preprocess
+  (pps ppx_jane))
+ (libraries core base mdev))
 
 (executables
-  (names mdev_corridor)
-  (modules mdev_corridor)
-  (preprocess (pps ppx_jane))
-  (libraries async base mdev))
+ (names mdev_corridor)
+ (modules mdev_corridor)
+ (preprocess
+  (pps ppx_jane))
+ (libraries async base mdev))
