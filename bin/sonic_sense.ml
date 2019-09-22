@@ -4,7 +4,7 @@ open! Import
 
 let run () =
   Led.set_rgb true true true;
-  let stop = Clock.after (Time.Span.of_sec 10.) in
+  let stop = Clock.after (Time.Span.of_sec 60.) in
   Clock.every (Time.Span.of_sec 0.04) ~stop (fun () ->
       let dist = Sonic.get_distance () in
       if dist < 100.
