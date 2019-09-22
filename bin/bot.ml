@@ -1,22 +1,5 @@
 open Core
-open Mdev
-
-let no_arg_command summary f = Command.basic ~summary (Command.Param.return f)
-
-let forward =
-  no_arg_command "Move the robot forward" (fun () ->
-      Servo.set_direction Servo.steering 0.;
-      Motor.set_speed Motor.left 1000;
-      Motor.set_speed Motor.right 1000;
-      Unix.sleep 1;
-      Motor.set_speed Motor.left 0;
-      Motor.set_speed Motor.right 0)
-
-let buzzer =
-  no_arg_command "Make some noise!" (fun () ->
-      Buzzer.set_level 3000;
-      Unix.sleep 1;
-      Buzzer.set_level 0)
+open Import
 
 let blink =
   no_arg_command "Blink the LED" (fun () ->
@@ -71,7 +54,7 @@ let () =
     ; "sonic-scan", sonic_scan
     ; "servo", servo
     ; "blink", blink
-    ; "buzzer", buzzer
-    ; "forward", forward
+    ; "buzz", Buzz.command
+    ; "forward", Forward.command
     ]
   |> Command.run
