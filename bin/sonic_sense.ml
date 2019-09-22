@@ -1,11 +1,19 @@
-open Core
-open Import
+open! Core
+open! Async
+open! Import
 
 let run () =
-  for d = 0 to 1000 do
-    let sonic = Mdev.Sonic.get_distance () in
-    printf "%2d %f\n%!" d sonic;
-    ignore (Unix.nanosleep 0.04 : float)
-  done
+  Led.set_rgb true true true;
+  let stop = Clock.after (Time.Span.of_sec 10.) in
+  Clock.every (Time.Span.of_sec 0.04) ~stop (fun () ->
+      let dist = Sonic.get_distance () in
+      if dist < 100.
+      then Led.set_rgb true false false
+      else Led.set_rgb true true true);
+  Clock.every (Time.Span.of_sec 0.5) ~stop (fun () ->
+      let dist = Sonic.get_distance () in
+      printf "Distance: %F\n" dist);
+  stop
 
-let command = no_arg_command "Grab some measurements from the sonic sensor" run
+let command =
+  no_arg_async_command "Grab some measurements from the sonic sensor" run
