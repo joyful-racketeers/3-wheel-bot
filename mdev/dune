@@ -1,5 +1,6 @@
 (library
  (name mdev)
+ (public_name mdev)
  (preprocess
   (pps ppx_jane))
  (libraries base smbus))

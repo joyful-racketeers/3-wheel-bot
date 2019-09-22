@@ -12,5 +12,4 @@ let get_distance () =
   /. 1000.
 
 let get_distance_robust () =
-  List.init 5 ~f:(fun _ -> get_distance ())
-  |> List.reduce_exn ~f:Float.min
+  List.init 5 ~f:(fun _ -> get_distance ()) |> List.reduce_exn ~f:Float.min
