@@ -5,6 +5,7 @@ let no_arg_command summary f = Command.basic ~summary (Command.Param.return f)
 
 let forward =
   no_arg_command "Move the robot forward" (fun () ->
+      Servo.set_direction Servo.steering 0.5;
       Motor.set_speed Motor.left 1000;
       Motor.set_speed Motor.right 1000;
       Unix.sleep 1;
@@ -49,11 +50,15 @@ let sonic =
 
 let servo =
   no_arg_command "Exercise the sonic servo" (fun () ->
-      for d = 0 to 100 do
-        Servo.set_direction Servo.sonar (float_of_int d /. 100.);
-        ignore (Unix.nanosleep 0.01 : float)
-      done;
-      Servo.set_direction Servo.sonar 0.5)
+      let run servo =
+        for d = 0 to 100 do
+          Servo.set_direction servo (float_of_int d /. 100.);
+          ignore (Unix.nanosleep 0.01 : float)
+        done;
+        Servo.set_direction servo 0.5
+      in
+      run Servo.sonar;
+      run Servo.steering)
 
 let () =
   Command.group
