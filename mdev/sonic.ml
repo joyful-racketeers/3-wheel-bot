@@ -10,3 +10,6 @@ let get_distance () =
   Float.of_int ((Uint8.to_int high_reading * 256) + Uint8.to_int low_reading)
   *. 17.
   /. 1000.
+
+let get_distance_robust () =
+  List.init 5 ~f:(fun _ -> get_distance ()) |> List.reduce_exn ~f:Float.min
