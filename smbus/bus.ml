@@ -10,7 +10,8 @@ let create bus_id =
   Gc.finalise (fun t -> if not t.closed then Unix.close t.file_descr) t;
   t
 
-let ensure_not_closed t = if t.closed then failwith "bus has already been closed"
+let ensure_not_closed t =
+  if t.closed then failwith "bus has already been closed"
 
 let read_byte t =
   ensure_not_closed t;
