@@ -26,4 +26,4 @@ let set_direction t v =
   Std_bus.write t.port (Float.iround_nearest_exn v |> Uint16.of_int_exn)
 
 let sonar = create Port_map.sonar_servo ~lo:500. ~hi:2500.
-let steering = create Port_map.steering_servo ~lo:0. ~hi:2000.
+let steering = create Port_map.steering_servo ~lo:100. ~hi:2100.
