@@ -2,11 +2,15 @@ open! Base
 open! Import
 
 type t = { port : Port.t
-         ; lo : float
-         ; hi : float
+         ; mutable lo : float
+         ; mutable hi : float
          }
 
 let create port ~lo ~hi = { port; lo; hi }
+
+let set_bounds t ~lo ~hi =
+  t.lo <- lo;
+  t.hi <- hi
 
 (** [interp ~lo ~hi x] is [lo] when [x] is [-1] and [hi] when [x] is
    [1] *)
