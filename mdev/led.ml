@@ -18,7 +18,7 @@ let t =
   { red_port; green_port; blue_port }
 
 let set_io port on =
-  Std_bus.write port (if on then Uint16.one else Uint16.zero)
+  Std_bus.write port (if on then Uint16.zero else Uint16.one)
 
 let set_rgb r_on g_on b_on =
   set_io t.red_port r_on;
