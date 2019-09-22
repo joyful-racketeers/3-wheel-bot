@@ -5,7 +5,7 @@ let no_arg_command summary f = Command.basic ~summary (Command.Param.return f)
 
 let forward =
   no_arg_command "Move the robot forward" (fun () ->
-      Servo.set_direction Servo.steering 0.5;
+      Servo.set_direction Servo.steering 0.;
       Motor.set_speed Motor.left 1000;
       Motor.set_speed Motor.right 1000;
       Unix.sleep 1;
@@ -32,12 +32,12 @@ let sonic_scan =
   no_arg_command "Do a sonic scan while swinging the scanner back and forth" (fun () ->
       Led.set_rgb false true true;
       for d = 0 to 100 do
-        Servo.set_direction Servo.sonar (float_of_int d /. 100.);
+        Servo.set_direction Servo.sonar (2. *. float_of_int d /. 100. -. 1.);
         let sonic = Sonic.get_distance () in
         Printf.printf "%2d %f\n%!" d sonic;
         ignore (Unix.nanosleep 0.01 : float)
       done;
-      Servo.set_direction Servo.sonar 0.5;
+      Servo.set_direction Servo.sonar 0.;
       Led.set_rgb true true true)
 
 let sonic =
@@ -52,10 +52,10 @@ let servo =
   no_arg_command "Exercise the sonic servo" (fun () ->
       let run servo =
         for d = 0 to 100 do
-          Servo.set_direction servo (float_of_int d /. 100.);
+          Servo.set_direction servo (2. *. float_of_int d /. 100. -. 1.);
           ignore (Unix.nanosleep 0.01 : float)
         done;
-        Servo.set_direction servo 0.5
+        Servo.set_direction servo 0.
       in
       run Servo.sonar;
       run Servo.steering)
