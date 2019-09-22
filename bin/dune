@@ -1,0 +1,5 @@
+(executables
+ (names bot)
+ (preprocess
+  (pps ppx_jane))
+ (libraries core base mdev))

@@ -66,7 +66,8 @@ let check_port_reqs ?(all_dif = true) port_reqs =
       then
         raise
           (Duplicate_port
-             ("Attempted to assign multiple devices to port " ^ Int.to_string port_int))
+             ("Attempted to assign multiple devices to port "
+             ^ Int.to_string port_int))
       else Hash_set.add ports_used port_int
     in
     List.iter ~f:full_check_port_req port_reqs)
