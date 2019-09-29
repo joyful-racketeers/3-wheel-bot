@@ -11,4 +11,5 @@ let () =
        ; "blink", Blink.command
        ; "buzz", Buzz.command
        ; "forward", Forward.command
+       ; "stop", Stop.command
        ])
