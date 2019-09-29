@@ -1,5 +1,4 @@
-# ocaml-smbus
-smbus interface for ocaml, this requires the `libi2c-dev` package on ubuntu or raspbian.
+# 3-wheel Freenove
 
-This has only been tested on a Raspberry Pi 3B+ connected to a Freenove 3-wheeled car,
-so it is pretty likely to fail on other platforms. Use at your own risk!
+This is forked off of Laurent Mazare's ocaml-smbus project, but is now
+primarily a playground for playing with a Freenove robot!
