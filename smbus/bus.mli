@@ -1,3 +1,6 @@
+(** Low-level module for communicating via the i2c bus on the
+   Raspberry Pi *)
+
 open Import
 
 type t

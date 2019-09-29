@@ -6,12 +6,16 @@ let run () =
   Led.set_rgb true true true;
   let stop = Clock.after (Time.Span.of_sec 60.) in
   Clock.every (Time.Span.of_sec 0.04) ~stop (fun () ->
-      let dist = Sonic.get_distance () in
-      if dist < 100.
+      let dist = Sonic.get_distance_robust () in
+      if dist < 10.
       then Led.set_rgb true false false
+      else if dist < 100.
+      then Led.set_rgb false false true
+      else if dist < 300.
+      then Led.set_rgb false true false
       else Led.set_rgb true true true);
   Clock.every (Time.Span.of_sec 0.5) ~stop (fun () ->
-      let dist = Sonic.get_distance () in
+      let dist = Sonic.get_distance_robust () in
       printf "Distance: %F\n" dist);
   stop
 
