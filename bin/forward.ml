@@ -10,12 +10,16 @@ let run () =
         let measurement = Sonic.get_distance_robust () in
         measurement < 50.
       in
-      let speed = if too_close then 0 else 2000 in
       if too_close
       then Led.set_rgb true false false
       else Led.set_rgb false true false;
-      Motor.set_speed Motor.left speed;
-      Motor.set_speed Motor.right speed);
+      let speed = 2000 in
+      if too_close then (
+        Motor.set_speed Motor.left speed;
+        Motor.set_speed Motor.right (-speed))
+      else (
+        Motor.set_speed Motor.left speed;
+        Motor.set_speed Motor.right speed));
   Deferred.never ()
 
 let command = no_arg_async_command "Move the robot forward" run
