@@ -2,8 +2,8 @@ open! Core
 open! Async
 open! Import
 
-let run ~num_steps =
-  Scan.run ~num_steps ~scan_completed:(fun scan ->
+let run ~num_steps ~delay =
+  Scan.run ~num_steps ~delay ~scan_completed:(fun scan ->
       let avg =
         List.sum ~f:Fn.id (module Float) scan
         /. Float.of_int (List.length scan)
@@ -21,10 +21,16 @@ let run ~num_steps =
 let command =
   Command.async
     ~summary:"Do a sonic scan while swinging the scanner back and forth"
-    (let%map_open.Command.Let_syntax num_steps =
-       flag
-         "-steps"
-         (optional_with_default 25 int)
-         ~doc:" Number of steps in scan"
-     in
-     fun () -> run ~num_steps)
+    [%map_open.Command.Let_syntax
+      let num_steps =
+        flag
+          "-steps"
+          (optional_with_default 25 int)
+          ~doc:" Number of steps in scan"
+      and delay =
+        flag
+          "-delay"
+          (optional_with_default (Time.Span.of_ms 10.) Time.Span.arg_type)
+          ~doc:" Time span between turn and measurement"
+      in
+      fun () -> run ~num_steps ~delay]

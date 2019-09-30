@@ -6,4 +6,5 @@ open! Import
 val run
   :  scan_completed:(float list -> unit)
   -> num_steps:int
+  -> delay:Time.Span.t
   -> unit Deferred.t

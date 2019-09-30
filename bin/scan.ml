@@ -16,8 +16,8 @@ type state =
   ; step : int
   }
 
-let run ~scan_completed ~num_steps =
-  let loop_delay = Time.Span.of_sec 0.01 in
+let run ~scan_completed ~num_steps ~delay =
+  let loop_delay = delay in
   let rec loop state =
     let percent_through = Float.of_int state.step /. Float.of_int num_steps in
     let normalized_direction = (2. *. percent_through) -. 1. in
