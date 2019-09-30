@@ -3,7 +3,7 @@ open! Async
 open! Import
 
 let run () =
-  Scan.run ~steps:25 ~robust:true ~scan_completed:(fun scan ->
+  Scan.run ~num_steps:25 ~scan_completed:(fun scan ->
       let avg =
         List.sum ~f:Fn.id (module Float) scan
         /. Float.of_int (List.length scan)
