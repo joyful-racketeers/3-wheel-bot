@@ -3,20 +3,23 @@ open! Async
 open! Import
 
 let run ~num_steps ~delay =
-  Scan.run ~num_steps ~delay ~scan_completed:(fun scan ->
+  Scan.run ~num_steps ~delay ~scan_completed:(fun full_scan ->
+      let scan = List.map ~f:snd full_scan in
       let avg =
         List.sum ~f:Fn.id (module Float) scan
         /. Float.of_int (List.length scan)
       in
       let min = List.reduce_exn ~f:Float.min scan in
       let max = List.reduce_exn ~f:Float.max scan in
+      let directions = List.map ~f:fst full_scan in
       print_s
         [%message
           "results"
-            (avg : float)
-            (min : float)
-            (max : float)
-            (scan : float list)])
+            (avg : Float.Terse.t)
+            (min : Float.Terse.t)
+            (max : Float.Terse.t)
+            (directions : Float.Terse.t list)
+            (full_scan : (Float.Terse.t * Float.Terse.t) list)])
 
 let command =
   Command.async

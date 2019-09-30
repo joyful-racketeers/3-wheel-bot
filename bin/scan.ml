@@ -12,7 +12,7 @@ let flip = function
 
 type state =
   { direction : scan_direction
-  ; scan : float list
+  ; scan : (float * float) list
   ; step : int
   }
 
@@ -24,12 +24,12 @@ let run ~scan_completed ~num_steps ~delay =
     let sonar_direction =
       match state.direction with
       | Right -> normalized_direction
-      | Left -> -.normalized_direction
+      | Left -> -. normalized_direction
     in
-    Servo.set_direction Servo.sonar sonar_direction;
+    Servo.set_direction Servo.sonar (-. sonar_direction);
     let%bind () = after loop_delay in
     let distance = Sonic.get_distance_robust () in
-    let scan = distance :: state.scan in
+    let scan = (sonar_direction, distance) :: state.scan in
     let next_step = state.step + 1 in
     if next_step <= num_steps
     then loop { state with step = next_step; scan }
@@ -37,8 +37,8 @@ let run ~scan_completed ~num_steps ~delay =
       (* End of the scan! *)
       scan_completed
         (match state.direction with
-        | Right -> scan
-        | Left -> List.rev scan);
+        | Right -> List.rev scan
+        | Left -> scan);
       loop { step = 0; direction = flip state.direction; scan = [] })
   in
   loop { direction = Right; scan = []; step = 0 }
