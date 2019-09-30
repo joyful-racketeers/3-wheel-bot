@@ -31,9 +31,8 @@ let run ~scan_completed ~steps ~robust =
     in
     Servo.set_direction Servo.sonar sonar_direction;
     let%bind () = after loop_delay in
-    let distance = 
-      if robust then Sonic.get_distance_robust () 
-      else Sonic.get_distance ()
+    let distance =
+      if robust then Sonic.get_distance_robust () else Sonic.get_distance ()
     in
     let scan = distance :: state.scan in
     let next_step = state.step + 1 in
