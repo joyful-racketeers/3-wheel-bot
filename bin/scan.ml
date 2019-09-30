@@ -17,7 +17,7 @@ type state =
   ; steps : int
   }
 
-let run ~scan_completed ~steps =
+let run ~scan_completed ~steps ~robust =
   let loop_delay = Time.Span.of_sec 0.01 in
   let rec loop state =
     let percent_through =
@@ -31,11 +31,14 @@ let run ~scan_completed ~steps =
     in
     Servo.set_direction Servo.sonar sonar_direction;
     let%bind () = after loop_delay in
-    let distance = Sonic.get_distance_robust () in
+    let distance = 
+      if robust then Sonic.get_distance_robust () 
+      else Sonic.get_distance ()
+    in
     let scan = distance :: state.scan in
     let next_step = state.step + 1 in
     if next_step <= steps
-    then loop { state with steps = next_step; scan }
+    then loop { state with step = next_step; scan }
     else (
       (* End of the scan! *)
       scan_completed
