@@ -2,7 +2,9 @@ open! Core
 open! Async
 open! Import
 
-type direction = Left | Right
+type direction =
+  | Left
+  | Right
 
 type mode =
   | Forward
@@ -18,10 +20,10 @@ let run () =
         measurement < 50.
       in
       (match !mode with
-      | Turning _ ->
-        if not too_close then mode := Forward
+      | Turning _ -> if not too_close then mode := Forward
       | Forward ->
-        if too_close then (
+        if too_close
+        then (
           let direction = if Random.bool () then Left else Right in
           mode := Turning direction));
       let speed = 2000 in
