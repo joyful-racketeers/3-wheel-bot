@@ -11,14 +11,12 @@ let run ~num_steps ~delay =
       in
       let min = List.reduce_exn ~f:Float.min scan in
       let max = List.reduce_exn ~f:Float.max scan in
-      let directions = List.map ~f:fst full_scan in
       print_s
         [%message
           "results"
             (avg : Float.Terse.t)
             (min : Float.Terse.t)
             (max : Float.Terse.t)
-            (directions : Float.Terse.t list)
             (full_scan : (Float.Terse.t * Float.Terse.t) list)])
 
 let command =
