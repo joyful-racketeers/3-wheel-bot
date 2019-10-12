@@ -2,4 +2,4 @@
  (names bot)
  (preprocess
   (pps ppx_jane))
- (libraries async core base mdev))
+ (libraries async core base mdev bot_lib))
