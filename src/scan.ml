@@ -24,9 +24,9 @@ let run ~scan_completed ~num_steps ~delay =
     let sonar_direction =
       match state.direction with
       | Right -> normalized_direction
-      | Left -> -. normalized_direction
+      | Left -> -.normalized_direction
     in
-    Servo.set_direction Servo.sonar (-. sonar_direction);
+    Servo.set_direction Servo.sonar (-.sonar_direction);
     let%bind () = after loop_delay in
     let distance = Sonic.get_distance_robust () in
     let scan = (sonar_direction, distance) :: state.scan in
