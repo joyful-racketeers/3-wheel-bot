@@ -2,4 +2,5 @@
  (name bot_lib)
  (preprocess
   (pps ppx_jane))
+ (inline_tests)
  (libraries async core base mdev))
