@@ -1,6 +1,11 @@
 open! Core
-open! Async
 open! Import
+
+let%expect_test _ =
+  print_s [%sexp (List.rev [ 1; 2; 3 ] : int list)];
+  [%expect {| (3 2 1) |}]
+
+open! Async
 
 let run ~num_steps ~delay =
   Scan.run ~num_steps ~delay ~scan_completed:(fun full_scan ->
