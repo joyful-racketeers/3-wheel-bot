@@ -11,4 +11,5 @@ let command =
     ; "buzz", Buzz.command
     ; "forward", Forward.command
     ; "stop", Stop.command
+    ; "field-controller", Field_controller.command
     ]
