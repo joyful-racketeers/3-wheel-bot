@@ -21,8 +21,8 @@ let run () =
     ~delay:(Time.Span.of_ms 10.)
     ~scan_completed:(fun scan ->
       let dir = largest_direction scan in
-      print_s [%sexp (scan : (float * float) list)];
-      print_s [%sexp (dir : float)];
+      print_s [%sexp (scan : (Float.Terse.t * Float.Terse.t) list)];
+      print_s [%sexp (dir : Float.Terse.t)];
       Servo.set_direction Servo.steering dir)
 
 (* Figure out what to do with the scan here! *)
