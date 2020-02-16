@@ -27,7 +27,7 @@ let run ~num_steps ~delay =
 let command =
   Command.async
     ~summary:"Do a sonic scan while swinging the scanner back and forth"
-    [%map_open.Command.Let_syntax
+    [%map_open.Command
       let num_steps =
         flag
           "-steps"

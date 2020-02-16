@@ -17,7 +17,7 @@ let run () =
   every (Time.Span.of_sec 0.05) (fun () ->
       let too_close =
         let measurement = Sonic.get_distance_robust () in
-        measurement < 50.
+        Float.(measurement < 50.)
       in
       (match !mode with
       | Turning _ -> if not too_close then mode := Forward
