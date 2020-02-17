@@ -20,10 +20,11 @@ let run ~speed =
     ~num_steps:30
     ~delay:(Time.Span.of_ms 10.)
     ~scan_completed:(fun scan ->
-      let dir = average_dir scan in
-      print_s [%sexp (scan : (Float.Terse.t * Float.Terse.t) list)];
-      print_s [%sexp (dir : Float.Terse.t)];
-      Servo.set_direction Servo.steering (1.4 *. dir))
+        let dir = average_dir scan in
+        let dir = if Float.is_nan dir then 0. else 1.4 *. dir in
+        print_s [%sexp (scan : (Float.Terse.t * Float.Terse.t) list)];
+        print_s [%sexp (dir : Float.Terse.t)];
+        Servo.set_direction Servo.steering dir)
 
 (* Figure out what to do with the scan here! *)
 
