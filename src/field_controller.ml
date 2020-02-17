@@ -13,12 +13,12 @@ let average_dir list =
   in
   sumproduct /. weight
 
-let run ~speed =
+let run ~speed ~steps ~delay =
   Motor.set_speed Motor.left speed;
   Motor.set_speed Motor.right speed;
   Scan.run
-    ~num_steps:30
-    ~delay:(Time.Span.of_ms 10.)
+    ~num_steps:steps
+    ~delay:(Time.Span.of_ms delay)
     ~scan_completed:(fun scan ->
         let dir = average_dir scan in
         let dir =
@@ -37,5 +37,11 @@ let command =
       let speed =
         flag "-speed" (optional_with_default 25 int)
           ~doc:" Speed to go forward"
+      and steps =
+        flag "-steps" (optional_with_default 30 int)
+          ~doc:" Sampling steps"
+      and delay =
+        flag "-delay" (optional_with_default 10. float)
+          ~doc:"milliseconds per sample"
       in
-      fun () -> run ~speed]
+      fun () -> run ~speed ~steps ~delay]
