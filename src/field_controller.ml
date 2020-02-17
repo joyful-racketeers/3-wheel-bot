@@ -3,7 +3,7 @@ open! Import
 
 let average_dir list =
   let total_distance =
-    List.map ~f:fst list
+    List.map ~f:snd list
     |> List.sum (module Float) ~f:Fn.id
   in
   let sumproduct =
