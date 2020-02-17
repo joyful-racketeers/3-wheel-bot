@@ -14,7 +14,7 @@ let average_dir list =
   sumproduct /. weight
 
 let run () =
-  let speed = 1000 in
+  let speed = 100 in
   Motor.set_speed Motor.left speed;
   Motor.set_speed Motor.right speed;
   Scan.run
