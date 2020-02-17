@@ -21,7 +21,7 @@ let run () =
       let dir = average_dir scan in
       print_s [%sexp (scan : (Float.Terse.t * Float.Terse.t) list)];
       print_s [%sexp (dir : Float.Terse.t)];
-      Servo.set_direction Servo.steering (-.dir))
+      Servo.set_direction Servo.steering dir)
 
 (* Figure out what to do with the scan here! *)
 
