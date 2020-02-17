@@ -2,7 +2,8 @@ open! Core
 open! Import
 
 let average_dir list =
-  let total_distance =
+  let list = List.map list ~f:(fun (x,y) -> (x, 1. /. y)) in
+  let weight =
     List.map ~f:snd list
     |> List.sum (module Float) ~f:Fn.id
   in
@@ -10,7 +11,7 @@ let average_dir list =
     List.map ~f:(fun (x,y) -> x *. y) list
     |> List.sum (module Float) ~f:Fn.id
   in
-  sumproduct /. total_distance
+  sumproduct /. weight
 
 let run () =
   Scan.run
