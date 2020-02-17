@@ -14,6 +14,9 @@ let average_dir list =
   sumproduct /. weight
 
 let run () =
+  let speed = 1000 in
+  Motor.set_speed Motor.left speed;
+  Motor.set_speed Motor.right speed;
   Scan.run
     ~num_steps:30
     ~delay:(Time.Span.of_ms 10.)
