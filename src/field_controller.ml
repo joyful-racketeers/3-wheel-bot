@@ -13,8 +13,7 @@ let average_dir list =
   in
   sumproduct /. weight
 
-let run () =
-  let speed = 100 in
+let run ~speed =
   Motor.set_speed Motor.left speed;
   Motor.set_speed Motor.right speed;
   Scan.run
@@ -28,4 +27,11 @@ let run () =
 
 (* Figure out what to do with the scan here! *)
 
-let command = no_arg_async_command "Drive with a field controller" run
+let command =
+  Async.Command.async ~summary:"Drive with a field controller"
+    [%map_open.Command
+      let speed =
+        flag "-speed" (optional_with_default 25 int)
+          ~doc:" Speed to go forward"
+      in
+      fun () -> run ~speed]
